@@ -25,8 +25,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flask
+        pip install gunicorn
+        pip install requests
 
     - name: Test
       run: |
-        python ./flaskapp/some_app.py
+        cd flaskapp
+        chmod +x st.sh 
+        ./st.sh
 
