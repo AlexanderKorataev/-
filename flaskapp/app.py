@@ -20,7 +20,7 @@ def process():
     contrast_level = float(request.form['contrast_level'])
     image_file = request.files['image_file']
     if image_file:
-        image_path = 'static/uploaded_image.jpg'
+        image_path = 'static/histograms.jpg'
         image_file.save(image_path)
         processed_image_path = process_image(image_path, contrast_level)
         return render_template('index.html', processed_image=processed_image_path)
