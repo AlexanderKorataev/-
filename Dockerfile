@@ -1,20 +1,13 @@
-# Базовый образ
+# Базовый образ с Python
 FROM python:3.10
 
-# Копируем requirements.txt в образ
+# Установка зависимостей
 COPY requirements.txt /app/requirements.txt
-
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r /app/requirements.txt
-
-# Копируем все файлы из текущего каталога в образ
-COPY . /app
-
-# Устанавливаем рабочую директорию
 WORKDIR /app
+RUN pip install -r requirements.txt
 
-# Даем права на выполнение скрипта
-RUN chmod +x ./flaskapp/st.sh
+# Копирование приложения в образ
+COPY flaskapp /app
 
-# Запускаем скрипт
-CMD ["./flaskapp/st.sh"]
+# Запуск приложения
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]
